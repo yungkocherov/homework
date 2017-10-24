@@ -2,8 +2,6 @@ class StackSkobochek:
     def __init__(self, string):
         self.string = string
         self.stack = "."
-
-    @property
     def check1(self):
         for i in range(len(self.string)):
             if self.string[i] == "(" or self.string[i] == "{" or self.string[i] == "[" or self.string[i] =="]" or self.string[i] == "}" or self.string[i] == ")":
