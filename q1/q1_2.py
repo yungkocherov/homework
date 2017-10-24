@@ -1,4 +1,4 @@
-def del0(x):
+def deliteli(x):
     a = []
     for i in range(1, x + 1):
         if x % i == 0: a.append(i)
@@ -7,4 +7,4 @@ def del0(x):
 
 if __name__ == "__main__":
     x = int(input())
-    print(*del0(x))
+    print(*deliteli(x))
