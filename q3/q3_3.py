@@ -4,7 +4,7 @@ class Figure:
         pass
 
     def perimeter(self,):
-        pass1
+        pass
 
 class Circle(Figure):
     def __init__(self, radius):
