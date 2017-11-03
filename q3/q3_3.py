@@ -1,6 +1,12 @@
 import math
+class Figure:
+    def area(self):
+        pass
 
-class Circle:
+    def perimeter(self,):
+        pass1
+
+class Circle(Figure):
     def __init__(self, radius):
         self.radius = radius
 
@@ -13,7 +19,7 @@ class Circle:
         return self.P
 
 
-class rectangle:
+class rectangle(Figure):
     def __init__(self, height, width):
         self.height = height
         self.width = width
