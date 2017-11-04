@@ -1,42 +1,47 @@
 import math
-class Figure:
-    def area(self):
-        pass
 
-    def perimeter(self,):
-        pass
+
+class Figure:
+    def area(self, a, b):
+        return a * b
+
+    def p(self, a, b):
+        return (a + b) * 2
+
 
 class Circle(Figure):
-    def __init__(self, radius):
-        self.radius = radius
+    def f1(self, r):
+        a = r
+        b = r * math.pi
+        return Figure.area(self, a, b)
 
-    def f1(self):
-        self.a = math.pi * self.radius * self.radius
-        return (self.a)
-
-    def f2(self):
-        self.P = 2 * math.pi * self.radius
-        return self.P
+    def f2(self, r):
+        b = r
+        return Figure.p(self, 0, b)
 
 
 class rectangle(Figure):
-    def __init__(self, height, width):
-        self.height = height
-        self.width = width
+    def f1(self, h, w):
+        a = h
+        b = w
 
-    def f1(self):
-        self.a = self.height * self.width
-        return (self.a)
+        return Figure.area(self, a, b)
+
+    def f2(self, h, w):
+        a = h
+        b = w
+
+        return Figure.p(self, a, b)
 
 
 print("Circle")
 r = float(input("enter radius:"))
-t1 = Circle(r)
-print("area=",t1.f1())
-print("perimeter=", t1.f2())
+
+print("area=", Circle().f1(r))
+print("perimeter=", Circle().f2(r))
 
 print("rectangle")
 h = float(input("enter height :"))
 w = float(input("enter width:"))
-rect = rectangle(h, w)
-print("area=", rect.f1())
+print("area=", rectangle().f1(h,w))
+print("perimeter=", rectangle().f2(h,w))
