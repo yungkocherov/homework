@@ -1,3 +1,5 @@
+#Это новый код
+
 class TT:
     def __init__(self):
         self.time = 0.0
