@@ -1,41 +1,90 @@
-#Это новый код
+def S_time(s):
+    return int(s[0:2]) * 3600000 + int(s[3:5]) * 60000 + int(s[6:8]) * 1000 + int(s[9:12])
 
-class TT:
+
+def time(t):
+    h = t // 3600000
+    m = (t - h * 3600000) // 60000
+    s = (t - h * 3600000 - m * 60000) // 1000
+    ms = (t - h * 3600000 - m * 60000 - s * 1000)
+    return str(h) + ":" + str(m) + ":" + str(s) + ":" + str(ms)
+
+
+class price():
     def __init__(self):
-        self.time = 0.0
-        self.size = 0
-        self.name = ''
+        self.s = list()
+
+    def append(self, n):
+        self.s.append(n)
+
+    def pop(self):
+        if len(self.s) > 0:
+            self.s.pop(0)
+
+    def f(self):
+        if len(self.s) > 0:
+            return self.s[0]
+        else:
+            return 0
+
+    def m1(self):
+        return len(self.s) == 0
+
+    def m2(self):
+        return len(self.s)
 
 
-with open('TRD2.csv') as f:
-    d = f.readlines()
-    d = d[1::]
-    a = []
-    b = []
-    for x in d:
-        x1, x2, x3, x4 = x.split(',')
-        p = list(x1.split(':'))
-        rec = TT()
-        rec.time = float(p[-1]+p[-2]*60+p[-3]*3600)
-        rec.size = int(x3)
-        rec.name = x4
-        a.append(rec)
-        if x4 not in b: b.append(x4)
+f = open("TRD2.csv", "r")
+a = f.readline()
 
-for x in b:
-    s = 0.0
-    k = 0
-    c = []
-    for i in range(len(a)):
-        if a[i].name == x:
-            if s + (a[i].time-a[i-1].time) < 1:
-                s += a[i].time
-                k += a[i].size
-            if s >= 1:
-                c.append(k)
-                s = 0
-                k = 0
-    if c != []:
-        print(x, max(c))
-    else:
-        print(x, k)
+dic = {'V': None, 'D': None, 'X': None, 'Y': None, 'B': None, 'J': None, 'Q': None, 'Z': None, 'K': None, 'P': None,
+       'All': None}
+max1 = {'V': 0, 'D': 0, 'X': 0, 'Y': 0, 'B': 0, 'J': 0, 'Q': 0, 'Z': 0, 'K': 0, 'P': 0, 'All': 0}
+maxM = {'V': 0, 'D': 0, 'X': 0, 'Y': 0, 'B': 0, 'J': 0, 'Q': 0, 'Z': 0, 'K': 0, 'P': 0, 'All': 0}
+m = 0
+
+for i in dic:
+    dic[i] = price()
+
+
+def input():
+    a = f.readline()
+    p = a.split(',')
+    return p
+
+
+def c():
+    global m
+    f = False
+    while True:
+        s = input()
+        if (s[0] == ''):
+            return 0
+        if not f:
+            m = S_time(s[0])
+            f = True
+        t1 = S_time(s[0]) - m
+        t2 = dic[s[3][0]].f()
+        while t1 - t2 > 1000 and not dic[s[3][0]].m1():
+            t2 = dic[s[3][0]].f()
+            dic[s[3][0]].pop()
+        dic[s[3][0]].append(t1)
+        if max1[s[3][0]] < dic[s[3][0]].m2():
+            max1[s[3][0]] = dic[s[3][0]].m2()
+            maxM[s[3][0]] = dic[s[3][0]].f()
+        t2 = dic['All'].f()
+        while t1 - t2 > 1000 and not dic['All'].m1():
+            t2 = dic['All'].f()
+            dic['All'].pop()
+        dic['All'].append(t1)
+        if max1['All'] < dic['All'].m2():
+            max1['All'] = dic['All'].m2()
+            maxM['All'] = dic['All'].f()
+
+
+def out():
+    for i in dic:
+        print(i, "Max:", max1[i], "Time:", time(maxM[i] + m))
+
+c()
+out()
